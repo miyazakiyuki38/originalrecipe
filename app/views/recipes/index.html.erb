@@ -1,0 +1,48 @@
+ <div class="contents left">
+  今月の人気Recipe!
+ </div>
+ <div class="box01">
+ </div>
+ <div class="box01-word">
+ #簡単 #健康 #コスパ良
+ </div>
+ <div class="box01-word2">
+ #おつまみ  #弁当 #朝ごはん
+ </div>
+
+ <%= form_with(url: search_recipes_path, local: true, method: :get, class: "search-form") do |form| %>
+  <%# <%= form.text_field :keyword, placeholder: "投稿を検索する", class: "search-input" %> 
+ <div class="search-box">
+ <%= form.submit "Keyword", class: "search-botan" %>
+ </div> 
+ 
+ <% end %>
+<div class="contents row">
+  <% @recipes.each do |recipe| %>
+    <div class="content_post" style="background-image: url(<%= recipe.image %>);">
+      <div class="more">
+        <span><%= image_tag 'arrow_top.png' %></span>
+        <ul class="more_list">
+          <li>
+            <%= link_to '詳細', recipe_path(recipe.id), method: :get %>
+          </li>
+          <% if user_signed_in? && current_user.id == recipe.user_id %>
+            <li>
+              <%= link_to '編集', edit_recipe_path(recipe.id), method: :get %>
+            </li>
+            <li>
+              <%= link_to '削除', recipe_path(recipe.id), method: :delete %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <p><%= recipe.text %></p>
+      <span class="name">
+        <a href="/users/<%= recipe.user.id %>">
+          <span>投稿者</span>
+          <%= recipe.user.nickname %>
+        </a>
+      </span>
+    </div>
+  <% end %>
+</div>

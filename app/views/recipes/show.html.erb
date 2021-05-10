@@ -1,0 +1,33 @@
+<div class="contents row">
+  <div class="content_post2" style="background-image: url(<%= @recipe.image %>);">
+  <% if user_signed_in? && current_user.id == @recipe.user_id %>
+    <div class="more">
+      <span><%= image_tag 'arrow_top.png' %></span>
+      <ul class="more_list">
+        <li>
+          <%= link_to '編集', edit_recipe_path(@recipe.id), method: :get %>
+        </li>
+        <li>
+          <%= link_to '削除', recipe_path(@recipe.id), method: :delete %>
+        </li>
+      </ul>
+    </div>
+    <% end %>
+    <p><%= @recipe.text %></p>
+    <span class="name">
+      <a href="/users/<%= @recipe.user.id %>">
+        <span>投稿者<%= @recipe.user.nickname %></span>
+      </a>
+    </span>
+  </div>
+  <div class="container">
+    <% if user_signed_in? %>
+      <%= form_with(model: [@recipe, @comment], local: true) do |form| %>
+        <%= form.text_area :text, placeholder: "コメントする", rows: "2" %>
+        <%= form.submit "SEND" %>
+      <% end %>
+    <% else %>
+      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+    <% end %>
+  </div>
+</div>

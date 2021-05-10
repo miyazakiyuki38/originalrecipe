@@ -1,0 +1,8 @@
+<div class="contents row">
+  <p><%= @recipes.name %>さんの投稿一覧</p>
+  <% @recipes.each do |recipe| %>
+    <div class="content_post2" style="background-image: url(<%= recipe.image %>);">
+      <p><%= recipe.text %></p>
+    </div>
+  <% end %>
+</div>
