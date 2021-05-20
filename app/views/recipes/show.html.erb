@@ -1,4 +1,4 @@
-<div class="contents row">
+<div class="contents row2">
   <div class="content_post2" style="background-image: url(<%= @recipe.image %>);">
   <% if user_signed_in? && current_user.id == @recipe.user_id %>
     <div class="more">
@@ -13,21 +13,15 @@
       </ul>
     </div>
     <% end %>
-    <p><%= @recipe.text %></p>
+    <p>title:
+    <%= @recipe.text %>
+    </p>
     <span class="name">
       <a href="/users/<%= @recipe.user.id %>">
-        <span>投稿者<%= @recipe.user.nickname %></span>
+        <span>投稿者:
+        <%= @recipe.user.nickname %>
+        </span>
       </a>
     </span>
-  </div>
-  <div class="container">
-    <% if user_signed_in? %>
-      <%= form_with(model: [@recipe, @comment], local: true) do |form| %>
-        <%= form.text_area :text, placeholder: "コメントする", rows: "2" %>
-        <%= form.submit "SEND" %>
-      <% end %>
-    <% else %>
-      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
-    <% end %>
   </div>
 </div>
